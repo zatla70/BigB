@@ -1,0 +1,16 @@
+{
+    "358098380729221133" : 
+    {
+        "prefix" : "!",
+        "modRole" : "moderator",
+        "serverLog" : 1,
+        "logType" : 2
+    },
+    "345522008609521664" :
+    {
+        "prefix" : "?",
+        "modRole" : "Administrator",
+        "serverLog" : 0,
+        "logType" : 0
+    }
+}
