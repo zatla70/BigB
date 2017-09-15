@@ -15,7 +15,7 @@ class LookerBOT extends Client{
 permLevelCal(message){
     let permLvl = 0;
 
-    //if(message.author.id === client.config.ownerID) return permLvl = 10;
+    if(message.author.id === client.config.ownerID) return permLvl = 10;
     if (!message.guild || !message.member) return 0;
     // guild owner permission level
     try{
