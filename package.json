@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A public discord.js bot in development",
   "main": "index.js",
+  "engines": {
+    "node": "8.4.0"
+  },
   "scripts": {
     "test": "node index.js"
   },
