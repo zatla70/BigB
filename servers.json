@@ -22,5 +22,13 @@
         "serverlog" : 1,
         "logType" : 1,
         "logchannel" : "339785028055597058"
+    },
+	"290162830009696257" :
+    {
+        "prefix" : "!",
+        "modRole" : "Moderator",
+        "serverlog" : 0,
+        "logType" : 1,
+        "logchannel" : ""
     }
 }
