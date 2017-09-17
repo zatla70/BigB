@@ -1,4 +1,4 @@
-const { Client, Collection } = require('discord.js');
+const { Client, Collection, RichEmbed } = require('discord.js');
 const {readdir} = require('fs-nextra');
 if (process.version.slice(1).split('.')[0] < 8) throw new Error('Node 8.0.0 or higher is required. Update Node on your system.');
 
@@ -11,6 +11,10 @@ class LookerBOT extends Client{
     this.commands = new Collection();
     this.aliases = new Collection();
   }
+
+capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 permLevelCal(message){
     let permLvl = 0;
@@ -46,6 +50,19 @@ log(type, message, title) {
     if (!title) title = 'Log';
     console.log(`[${type}] [${title}]${message}`);
   }
+
+serverlog(message, command){
+    // this thing exists but is not used as of now
+    let channel = '';
+    if(message.channel.type === "dm") channel = 'DM';
+    else channel = `Server: ${message.guild.name}`
+    const embed = new RichEmbed()
+        .setAuthor(channel)
+        .setColor(3447003)
+        .setDescription(`Command **${command}** used by **${message.author.username}**`)
+        .setThumbnail(message.author.avatarURL)
+    client.guilds.get("358098380729221133").channels.get('358098762263953408').send({embed}).catch(e => console.error(e));
+}
 
 }
 

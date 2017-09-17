@@ -5,7 +5,7 @@ class Clear extends Command {
     super(client, {
       name: 'clear',
       description: 'It clears between 2 and 99 messages.',
-      usage: 'clear [user] <number',
+      usage: 'clear [user] <number>',
       category:'Moderation',
       guildOnly: true,
       aliases: ['prune','purge'],

@@ -19,16 +19,22 @@ module.exports = class {
 
         // checking for server specific prefix
         var prefixes = '';
-        if(this.client.serverData[message.guild.id]){
-            prefixes = [this.client.config.setting.prefix, this.client.serverData[message.guild.id].prefix];
-        } else {
-            prefixes = [this.client.config.setting.prefix];
-        }
         let prefix = false;
-        for(const thisPrefix of prefixes) {
-            if(message.content.startsWith(thisPrefix)) prefix = thisPrefix;
+        if(message.channel.type === "dm"){
+            prefix = this.client.config.setting.prefix;
+        } else {            
+            if(this.client.serverData[message.guild.id]){
+                prefixes = [this.client.config.setting.prefix, this.client.serverData[message.guild.id].prefix];
+            } else {
+                prefixes = [this.client.config.setting.prefix];
+            }            
+            for(const thisPrefix of prefixes) {
+                if(message.content.startsWith(thisPrefix)) prefix = thisPrefix;
+            }
         }
+
         if(!prefix) return;
+        if(!message.content.startsWith(prefix)) return;
 
         const args = message.content.slice(prefix.length).trim().split(/ +/g);
         const command = args.shift().toLowerCase();
@@ -41,6 +47,7 @@ module.exports = class {
                 message.flags.push(args.shift().slice(1));
             }
             this.client.log('log', `${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`, 'CMD');
+            //this.client.serverlog(message, cmd.help.name);
             //this.client.guild.channels.get(this.client.config.setting.botChannel).send(`${message.author.username} (${message.author.id}) ran command ${cmd.help.name} in ${message.guild.name} - ${message.channel.name}`)
             cmd.run(message, args, level).catch(error => {
                 message.channel.send(error);
