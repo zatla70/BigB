@@ -26,7 +26,7 @@
 	"290162830009696257" :
     {
         "prefix" : "%",
-        "modRole" : ":tools:Admin:tools:",
+        "modRole" : ":hammer:Moderator:hammer:",
         "serverlog" : 0,
         "logType" : 1,
         "logchannel" : ""
