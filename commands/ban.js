@@ -9,7 +9,7 @@ class Ban extends Command {
       aliases: ['banne', 'bean'],
       guildOnly: true,
       category: "Moderation",
-      permLevel: 5
+      permLevel: 3
     });
   }
 
