@@ -37,7 +37,7 @@ permLevelCal(message){
             modRoleName = client.config.setting.modRole;
         }
         const moderator = message.guild.roles.find(r => r.name.toLowerCase() === modRoleName.toLowerCase());
-        if ((moderator && message.member.roles.has(moderator.id)) || message.guild.members(message.author).hasPermission("ADMINISTRATOR")) permLvl = 3;
+        if ((moderator && message.member.roles.has(moderator.id)) || message.member.hasPermission("ADMINISTRATOR")) permLvl = 3;
     }
     catch (error) {
         console.log(error)
