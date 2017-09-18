@@ -27,8 +27,8 @@
     {
         "prefix" : "%",
         "modRole" : ":hammer:Moderator:hammer:",
-        "serverlog" : 0,
-        "logType" : 1,
-        "logchannel" : ""
+        "serverlog" : 1,
+        "logType" : 2,
+        "logchannel" : "338342036627521548"
     }
 }
