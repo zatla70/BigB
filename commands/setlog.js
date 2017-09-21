@@ -6,7 +6,7 @@ class setlog extends Command {
     super(client, {
       name: 'setlog',
       description: "Edit the bot's prefix for this server.\n\t\t\t    The log channel will be the channel where this command is run.",
-      usage: 'setlog <enable [log type(1-3)]> / <disable>',
+      usage: 'setlog <enable [log type(1-2)]> / <disable>',
       guildOnly: true,
       category: "Server",
       userPermNeeded: ['MANAGE_GUILD']
@@ -22,7 +22,7 @@ class setlog extends Command {
       if(args[0].toLowerCase() === "enable"){
         logDo = true;
         logType = args[1];
-        if(logType > 3) logType = 3;
+        if(logType > 2) logType =2 ;
       }else if(args[0].toLowerCase() === "disable"){
         logDo = false;
         logType = 0;
