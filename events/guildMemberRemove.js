@@ -1,29 +1,4 @@
 const { RichEmbed } = require('discord.js');
-const { Canvas } = require('canvas-constructor');
-const snek = require('snekfetch');
-const { resolve, join } = require('path');
-const fsn = require('fs-nextra');
-Canvas.registerFont(resolve(join(__dirname, '../assets/fonts/Discord.ttf')), 'Discord');
-
-const MakeLeaveImg = async (person, guildname) => {
-  const png = person.displayAvatarURL.replace(/\.gif.+/g, '.png');
-  const { body } = await snek.get(png);
-  const pName = person.tag;
-  let WelName = 'GOODBYE';
-  let enjoyStay = `We hope you enjoyed here at ${guildname}`
-  return new Canvas(1024, 450)
-    .addImage(body, 384, 20, 256, 256, { type: 'round', radius: 128 })
-    .restore()
-    .setTextFont('80px Discord')
-    .setColor('#FFFFFF')
-    .setTextAlign('center')
-    .addText(WelName, (512 - (WelName.length/2)), 350)
-    .setTextFont('38px Discord')
-    .addText(pName,(512-(pName.length/2)),388)
-    .setTextFont('30px Discord')
-    .addText(enjoyStay,(512-(enjoyStay.length/2)),440)
-    .toBuffer();
-};
 
 module.exports = class {
   constructor(client) {
@@ -67,14 +42,6 @@ module.exports = class {
         member.guild.channels.get(logChannelID).send({embed}).catch(err => console.error(err));
         }catch(errror) {
          console.log(errror)
-        }
-    } else if(this.client.serverConfig[serverID].logType == 3){
-        try{
-          const person = member.user;
-          const result = await MakeLeaveImg(person, member.guild.name);
-          await member.guild.channels.get(logChannelID).send({files: [{attachment: result, name: `welcome${person.tag}.png`}]});
-        }catch (error){
-         console.log(error)
         }
     }
     } catch(error) {console.log(error)}
