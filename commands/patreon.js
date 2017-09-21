@@ -8,7 +8,6 @@ class Patreon extends Command {
       description: 'Displays patreon information',
       usage: 'patreon',
       category: 'Support',
-      guildOnly: false,
       aliases: ['donate', 'pledge', 'patron']
     });
   }

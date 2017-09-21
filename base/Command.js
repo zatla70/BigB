@@ -4,13 +4,17 @@ class Command {
         description = 'No description available',
         category = 'General',
         usage = 'No information provided',
+        extended = 'No detailed information provided',
         guildOnly = false,
         aliases = [],
-        permLevel = 0
+        permLevel = 0,
+        cost = 0,
+        botPermNeeded = ['READ_MESSAGES', 'SEND_MESSAGES'],
+        userPermNeeded = ['READ_MESSAGES', 'SEND_MESSAGES']
     }) {
         this.client = client;
-        this.conf = {guildOnly, aliases, permLevel};
-        this.help = {name, description, category, usage};
+        this.conf = {guildOnly, aliases, permLevel, botPermNeeded, userPermNeeded};
+        this.help = {name, description, category, usage, extended, cost};
     }
 
 // this peice of code below is copied directly as I dont even know what it does :P

@@ -8,7 +8,8 @@ class Userinfo extends Command {
       name: 'userinfo',
       description: 'Displays few information about the user.',
       usage: 'userinfo [mention]',
-      aliases: ['userstats','uinfo']
+      aliases: ['userstats','uinfo'],
+      botPermNeeded: ['EMBED_LINKS']
     });
   }
 

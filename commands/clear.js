@@ -9,7 +9,8 @@ class Clear extends Command {
       category:'Moderation',
       guildOnly: true,
       aliases: ['prune','purge'],
-      permLevel: 3
+      userPermNeeded: ['MANAGE_MESSAGES'],
+      botPermNeeded: ['MANAGE_MESSAGES']
     });
   }
 

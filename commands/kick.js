@@ -4,28 +4,26 @@ class Kick extends Command {
   constructor(client) {
     super(client, {
       name: 'kick',
-      description: 'Kicks a mentioned user',
+      description: 'Kicks a mentioned user, or a user\'s ID',
       usage: 'kick <mention> [reason]',
-      aliases: ['boot', 'throw'],
+      aliases: ['toss', 'boot', 'throw'],
       category: "Moderation",
       guildOnly: true,
-      permLevel: 3
+      botPermNeeded: ['KICK_MEMBERS'],
+      userPermNeeded: ['KICK_MEMBERS']
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
 
-    let member = message.mentions.members.first();
-    if (!member) return message.reply('Invalid command usage, You must mention someone to use this command.');
-    if (!member.kickable) return message.channel.send(`:unamused: You cant kick **${member.user.username}**`);
-
-    let reason = args.slice(1).join(" ");
-    member.kick(reason);
-    //const settings = this.client.settings.get(message.guild.id);
-    //const channel = message.guild.channels.exists('name', settings.modLogChannel);
-    //if (!channel) return message.reply(`Cannot find the \`${settings.modLogChannel}\` channel.`);
-    //await this.buildModLog(this.client, message.guild, 'k', target, message.author, reason);
-    await message.channel.send('beaned!');
+    const target = message.mentions.members.first();
+    if (target === message.author) return message.reply(':joy: You cant Kick Yourself :joy:');
+    if (!target) return message.reply(':unamused: Invalid command usage, You must mention someone to use this command.');
+    if (!target.kickable) return message.reply(`You cannot Kick **${target.username}**`);
+    
+    const reason = args.splice(1, args.length).join(' ');
+    target.kick(reason);
+    await message.channel.send('Kicked!');
   }
 }
 

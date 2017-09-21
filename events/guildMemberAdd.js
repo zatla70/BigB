@@ -1,4 +1,30 @@
 const { RichEmbed } = require('discord.js');
+const { Canvas } = require('canvas-constructor');
+const snek = require('snekfetch');
+const { resolve, join } = require('path');
+const fsn = require('fs-nextra');
+Canvas.registerFont(resolve(join(__dirname, '../assets/fonts/Discord.ttf')), 'Discord');
+
+const MakeWelcomImg = async (person, guildname) => {
+  const png = person.displayAvatarURL.replace(/\.gif.+/g, '.png');
+  const { body } = await snek.get(png);
+  const pName = person.tag;
+  let WelName = 'WELCOME';
+  let enjoyStay = `Enjoy your stay in ${guildname}`
+  return new Canvas(1024, 450)
+    .addImage(body, 384, 20, 256, 256, { type: 'round', radius: 128 })
+    .restore()
+    .setTextFont('80px Discord')
+    .setColor('#FFFFFF')
+    .setTextAlign('center')
+    .addText(WelName, (512 - (WelName.length/2)), 350)
+    .setTextFont('38px Discord')
+    .addText(pName,(512-(pName.length/2)),388)
+    .setTextFont('30px Discord')
+    .addText(enjoyStay,(512-(enjoyStay.length/2)),440)
+    .toBuffer();
+};
+
 
 module.exports = class {
   constructor(client) {
@@ -6,8 +32,9 @@ module.exports = class {
   }
 
   async execute(member) {
-    if(!this.client.serverData[member.guild.id]) return;
-    if(this.client.serverData[member.guild.id].serverLog === 0) return;
+    this.client.executeFewThing();
+    let serverID = member.guild.id;
+    if(this.client.serverConfig[serverID].welcomeLog === false) return;
     var welcomemsg = 
     [
         `**${member.user.tag}**, if our dog doesn't like you, we won't either !`,
@@ -33,19 +60,27 @@ module.exports = class {
     .setFooter(this.client.user.username, this.client.user.avatarURL);
 
     //trying to send the log detail to log channel   
-    let logChannelID = this.client.serverData[member.guild.id].logchannel;
+    let logChannelID = this.client.serverConfig[serverID].logChannelId;
     if (logChannelID === "") return;
-    if(this.client.serverData[member.guild.id].logType === 1){
+    if(this.client.serverConfig[serverID].logType == 1){
         try{
-        member.guild.channels.get(logChannelID).send(welcomemsg[randomNumber])
+          member.guild.channels.get(logChannelID).send(welcomemsg[randomNumber])
     }catch(errror) {
-         console.error(err)
+         console.log(errror)
         }
-    } else if(this.client.serverData[member.guild.id].logType === 2){
+    } else if(this.client.serverConfig[serverID].logType == 2){
         try{
-        member.guild.channels.get(logChannelID).send({embed}).catch(err => console.error(err));
+          member.guild.channels.get(logChannelID).send({embed}).catch(err => console.error(err));
         }catch(errror) {
-         console.error(err)
+         console.log(errror)
+        }
+    } else if(this.client.serverConfig[serverID].logType == 3){
+        try{
+          const person = member.user;
+          const result = await MakeWelcomImg(person, member.guild.name);
+          await member.guild.channels.get(logChannelID).send({files: [{attachment: result, name: `welcome${person.tag}.png`}]});
+        }catch (error){
+         console.log(error)
         }
     }
   }

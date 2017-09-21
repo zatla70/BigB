@@ -12,8 +12,14 @@ class Emoji extends Command {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const emojiList = message.guild.emojis.map(e=>e.toString()).join(" ");
-    message.channel.send(emojiList);
+    if(!args[0]){
+      const emojiList = message.guild.emojis.map(e=>e.toString()).join(" ");
+      if (emojiList === "") emojiList = "No emoji found!";
+      message.channel.send(emojiList);
+    }
+    try{
+        console.log(args[0])
+    } catch(error) {console.log(error)}
   }
 }
 module.exports = Emoji;

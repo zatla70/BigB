@@ -8,7 +8,7 @@ class Magic8 extends Command{
       description: 'Answers a question, magic 8 ball style.',
       usage: 'magic8 <question>?',
       category: 'Fun',
-      aliases: ['8', '8ball']
+      aliases: ['8ball']
     });
   }
 

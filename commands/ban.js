@@ -9,14 +9,15 @@ class Ban extends Command {
       aliases: ['banne', 'bean'],
       guildOnly: true,
       category: "Moderation",
-      permLevel: 3
+      botPermNeeded: ['BAN_MEMBERS'],
+      userPermNeeded: ['BAN_MEMBERS']
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     let member = message.mentions.members.first();
     if (!member) return message.reply('Invalid command usage, You must mention someone to use this command.');
-    if (!member.kickable) return message.channel.send(`:unamused: You cant ban **${member.user.username}**`);
+    if (!member.bannable) return message.channel.send(`:unamused: You cant ban **${member.user.username}**`);
 
     let reasonb = args.slice(1).join(" ");
     member.ban({days : 7, reason : reasonb});
