@@ -1,7 +1,7 @@
 {
   "name": "FM",
   "description": "FM BOT",
-  "version": "0.0.0",
+  "version": "6.4.1",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
